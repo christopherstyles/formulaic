@@ -49,10 +49,20 @@ describe Formulaic::Dsl do
   end
 
   describe 'submit' do
-    it 'finds a submit label' do
-      I18n.backend.store_translations(:en, { helpers: { submit: { user: { create: 'Create user' } } } })
+    context 'when a model-specific label has been specified' do
+      it 'finds the submit label' do
+        I18n.backend.store_translations(:en, { helpers: { submit: { user: { create: 'Create user' } } } })
 
-      expect(object_with_dsl.submit(:user)).to eq 'Create user'
+        expect(object_with_dsl.submit(:user)).to eq 'Create user'
+      end
+    end
+
+    context 'when no model-specific label has been specified' do
+      it 'finds a default submit label' do
+        I18n.backend.store_translations(:en, { helpers: { submit: { create: 'Create model' } } })
+
+        expect(object_with_dsl.submit(:user)).to eq 'Create model'
+      end
     end
   end
 

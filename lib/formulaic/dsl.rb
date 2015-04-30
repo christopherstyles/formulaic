@@ -16,7 +16,10 @@ module Formulaic
     end
 
     def submit(model_class, action = :create)
-      I18n.t([:helpers, :submit, model_class, action].join('.'))
+      default = I18n.t([:helpers, :submit, action].join('.'))
+
+      I18n.t([:helpers, :submit, model_class, action].join('.'),
+             default: default)
     end
   end
 end
